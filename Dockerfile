@@ -1,29 +1,31 @@
+# Dockerfile
 ARG PYTHON_VERSION=3.12-slim-bullseye
-
 FROM python:${PYTHON_VERSION}
 
-ENV PYTHONDONTWRITEBYTECODE 1
-ENV PYTHONUNBUFFERED 1
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1 \
+    PORT=8080
 
-# install psycopg2 dependencies.
-RUN apt-get update && apt-get install -y \
-    libpq-dev \
-    gcc \
-    && rm -rf /var/lib/apt/lists/*
-
-RUN mkdir -p /code
+# deps nativas
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    libpq-dev gcc \
+ && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /code
 
+# deps Python
 COPY requirements.txt /tmp/requirements.txt
-RUN set -ex && \
-    pip install --upgrade pip && \
-    pip install -r /tmp/requirements.txt && \
-    rm -rf /root/.cache/
+RUN pip install --upgrade pip \
+ && pip install --no-cache-dir -r /tmp/requirements.txt
+
+# código
 COPY . /code
 
-# Porta padrão de apps no Fly
-EXPOSE 8000
+# coletar estáticos (certifique-se de ter STATIC_ROOT nas settings)
+RUN python manage.py collectstatic --noinput
 
-# Comando de entrada
-CMD ["gunicorn", "core.wsgi:application", "--bind", "0.0.0.0:8080", "--log-file", "-"]
+# (EXPOSE é informativo; o Fly usa [http_service].internal_port)
+EXPOSE 8080
+
+# gunicorn usando a porta do ambiente
+CMD ["gunicorn", "core.wsgi:application", "--bind", "0.0.0.0:${PORT}", "--workers", "3", "--threads", "2", "--timeout", "120", "--log-file", "-"]
