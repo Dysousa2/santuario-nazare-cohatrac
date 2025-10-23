@@ -1,31 +1,39 @@
-# Dockerfile — Django + Poetry + Fly.io
+# Dockerfile
 FROM python:3.12-slim
 
-ENV PYTHONDONTWRITEBYTECODE=1
-ENV PYTHONUNBUFFERED=1
-ENV PATH="/root/.local/bin:$PATH"
-
-# Instalar dependências de sistema
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    build-essential libpq-dev curl \
- && rm -rf /var/lib/apt/lists/*
-
-# Instalar Poetry
-RUN curl -sSL https://install.python-poetry.org | python3 -
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1
 
 WORKDIR /app
 
-# Copiar configs do Poetry
+# Sistema básico
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    build-essential curl && \
+    rm -rf /var/lib/apt/lists/*
+
+# Instala Poetry (global) e desativa venv
+RUN pip install --no-cache-dir poetry
+RUN poetry config virtualenvs.create false
+
+# Copia manifestos do Poetry primeiro (cache)
 COPY pyproject.toml poetry.lock* /app/
 
-# Instalar dependências (sem virtualenv)
-RUN poetry config virtualenvs.create false && poetry install --no-root --no-interaction --no-ansi
+# Instala somente deps de produção
+RUN poetry install --only main --no-interaction --no-ansi --no-root
 
-# Copiar o restante do projeto
-COPY . /app/
+# Copia o projeto
+COPY . /app
 
-# Expor porta
-EXPOSE 8080
+# Coleta estáticos na imagem (gera /app/staticfiles)
+RUN python manage.py collectstatic --noinput
 
-# Comando final
-CMD ["gunicorn", "--bind", ":8000", "--workers", "2", "core.wsgi"]
+# Porta padrão (Fly usa PORT, mas definimos fallback)
+ENV PORT=8080
+
+# Comando de execução (escuta 0.0.0.0:$PORT)
+CMD exec gunicorn core.wsgi:application \
+  --bind 0.0.0.0:${PORT} \
+  --workers 3 \
+  --threads 2 \
+  --timeout 120 \
+  --log-file -

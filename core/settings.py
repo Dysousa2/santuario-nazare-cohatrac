@@ -18,7 +18,9 @@ SECRET_KEY = 'django-insecure-fpxp4(so+#_1o1w!)c5m0ka99)uyat08zk&u+@83)#d@jqt%dv
 
 DEBUG = False
 
-ALLOWED_HOSTS = ["127.0.0.1", "localhost"]
+ALLOWED_HOSTS = ["santuario-nazare-cohatrac.fly.dev", "localhost", "127.0.0.1"]
+CSRF_TRUSTED_ORIGINS = ["https://santuario-nazare-cohatrac.fly.dev"]
+
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -42,6 +44,12 @@ MIDDLEWARE = [
 ]
 
 STATICFILES_STORAGE = "whitenoise.storage.CompressedStaticFilesStorage"
+
+STORAGES = {
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+    }
+}
 
 ROOT_URLCONF = 'core.urls'
 
