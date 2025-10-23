@@ -1,0 +1,335 @@
+/* ===========================
+   Tema Azul-Marinho Mariano
+   =========================== */
+
+/* -------- Paleta -------- */
+:root{
+  --bg:#0B1526;          /* fundo principal (marinho) */
+  --bg-alt:#0E1E33;      /* variação para seções alternadas */
+  --fg:#F5F8FC;          /* texto principal */
+  --muted:#B8C4D6;       /* texto secundário */
+  --accent:#3478FF;      /* CTAs */
+  --accent-ink:#FFFFFF;  /* texto dentro do CTA */
+  --card:#12213A;        /* cartões/blocos */
+  --line:#1F324C;        /* linhas e divisórias */
+
+  /* Footer/Contribua */
+  --qr-size: 120px;      /* largura do QR e base para o botão */
+  --underline: 56px;     /* largura da linha abaixo do título */
+}
+
+/* ===== Reset & base ===== */
+*{ box-sizing:border-box }
+html,body{ margin:0; padding:0 }
+body{
+  font-family:Inter,system-ui,Segoe UI,Roboto,Arial,sans-serif;
+  background:var(--bg); color:var(--fg); line-height:1.6;
+}
+.container{ width:min(1100px,92%); margin:auto }
+a:focus,button:focus{ outline:2px solid var(--accent); outline-offset:2px }
+@media (prefers-reduced-motion:reduce){
+  *{
+    animation-duration:.01ms !important;
+    animation-iteration-count:1 !important;
+    transition-duration:.01ms !important;
+    scroll-behavior:auto !important;
+  }
+}
+
+/* =================
+   Header / Navegação
+   ================= */
+.header{
+  position:fixed; inset:0 0 auto; z-index:30;
+  background:rgba(9,20,38,.65);
+  backdrop-filter:blur(10px) saturate(140%);
+  transition:background .3s, box-shadow .3s, color .3s;
+  border-bottom:1px solid transparent;
+}
+.header.scrolled{
+  background:rgba(9,20,38,.95);
+  border-bottom:1px solid var(--line);
+  box-shadow:0 6px 24px rgba(0,0,0,.45);
+}
+.nav{ display:flex; align-items:center; justify-content:space-between; padding:14px 0 }
+.brand{ color:#fff; text-decoration:none; font-weight:600; letter-spacing:.2px }
+.nav-links{ display:flex; gap:20px }
+.nav-links a{ color:#E6ECF7; text-decoration:none; opacity:.95; transition:opacity .2s,color .2s }
+.nav-links a:hover,.nav-links a.active{ opacity:1; color:#fff }
+.nav-toggle{ display:none; background:none; border:0; cursor:pointer }
+.nav-toggle span{ display:block; width:22px; height:2px; background:#fff; margin:5px 0; transition:.3s }
+
+/* =========
+   Hero
+   ========= */
+.hero{
+  position:relative; min-height:88vh;
+  display:grid; place-items:center; text-align:center;
+  background:center/cover no-repeat var(--bg);
+  background-image:var(--hero);
+}
+.hero-overlay{
+  position:absolute; inset:0;
+  background:linear-gradient(to bottom, rgba(5,12,25,.55), rgba(5,12,25,.88));
+}
+.hero-inner{ position:relative; z-index:2; padding:0 1rem }
+.hero-title{ font-size:clamp(2rem,6vw,3.6rem); margin:.2rem 0 1rem; color:#fff }
+.hero-sub{ color:#CED8EA; margin-bottom:1.5rem }
+.hero-cta{ display:flex; gap:.8rem; justify-content:center; flex-wrap:wrap }
+
+/* Botões */
+.btn{
+  display:inline-block; padding:.9rem 1.1rem; border-radius:12px;
+  background:var(--accent); color:var(--accent-ink); text-decoration:none;
+  font-weight:600; transition:filter .2s, transform .06s;
+}
+.btn:hover{ filter:brightness(1.07) }
+.btn:active{ transform:translateY(1px) }
+.btn-outline{ background:transparent; border:1px solid rgba(255,255,255,.7); color:#fff }
+.btn-outline:hover{ border-color:#fff }
+
+/* ==========
+   Seções
+   ========== */
+.section{ padding:72px 0; border-top:1px solid var(--line); background:var(--bg) }
+.section.alt{ background:var(--bg-alt) }
+.section h2{ margin:0 0 18px; font-size:1.6rem }
+
+.cards{ display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:16px }
+.card{ background:var(--card); border:1px solid var(--line); border-radius:14px; padding:18px }
+.card h3{ margin:.2rem 0 .4rem; color:#fff }
+
+/* ===== Timeline ===== */
+.timeline{ list-style:none; margin:0; padding:0; border-left:2px solid var(--line) }
+.timeline li{ position:relative; margin:0 0 18px 18px; padding-left:14px }
+.timeline li::before{
+  content:""; position:absolute; left:-10px; top:4px;
+  width:10px; height:10px; border-radius:50%; background:var(--accent);
+}
+
+/* ===== Mapa ===== */
+.map-embed{ margin:18px 0; border:1px solid var(--line); border-radius:12px; overflow:hidden }
+
+/* =================
+   Utilidades
+   ================= */
+.reveal{ opacity:0; transform:translateY(14px); transition:opacity .6s, transform .6s }
+.reveal.visible{ opacity:1; transform:none }
+.to-top{
+  position:fixed; right:18px; bottom:18px; border:0; border-radius:50%;
+  width:44px; height:44px; background:var(--accent); color:#001428; font-size:20px;
+  cursor:pointer; box-shadow:0 8px 22px rgba(0,0,0,.35); display:none;
+}
+.to-top.show{ display:block }
+
+/* ===== WhatsApp FAB (só ícone) ===== */
+.whatsapp-fab{
+  position:fixed; right:18px; bottom:80px; z-index:40;
+  display:grid; place-items:center; background:transparent; border:none; box-shadow:none;
+  cursor:pointer; transition:transform .15s ease;
+}
+.whatsapp-fab:hover{ transform:scale(1.08) }
+.whatsapp-fab img{ width:52px; height:52px; display:block; filter:drop-shadow(0 4px 8px rgba(0,0,0,.35)) }
+
+/* =================
+   Navegação Mobile
+   ================= */
+@media (max-width:880px){
+  .nav-toggle{ display:block }
+  .nav-links{
+    position:fixed; inset:64px 0 auto 0; background:rgba(9,20,38,.97);
+    display:grid; gap:12px; padding:16px; border-top:1px solid var(--line);
+    transform:translateY(-120%); transition:transform .3s ease;
+  }
+  .nav-links a{ color:#E6ECF7 }
+  .nav-links.open{ transform:none }
+}
+
+/* ====== Agenda de Missas ====== */
+.agenda-note{ color:var(--muted); margin:0 0 12px }
+.agenda-grid{ display:grid; grid-template-columns:repeat(7,1fr); gap:12px }
+@media (max-width:900px){ .agenda-grid{ grid-template-columns:repeat(3,1fr) } }
+@media (max-width:560px){ .agenda-grid{ grid-template-columns:repeat(2,1fr) } }
+.day-card{
+  background:var(--card); border:1px solid var(--line); border-radius:12px; padding:12px;
+}
+.day-card h4{ margin:0 0 8px; font-size:1rem; color:#fff }
+.time-pill{
+  display:inline-block; margin:6px 6px 0 0; padding:.35rem .55rem; border-radius:999px;
+  font-size:.88rem; border:1px solid var(--line); background:rgba(255,255,255,.04); color:var(--fg);
+}
+.time-pill.past{ opacity:.45; text-decoration:line-through }
+.time-pill.next{ border-color:var(--accent); box-shadow:0 0 0 2px rgba(52,120,255,.25) inset }
+
+/* ====== Carrossel Pastorais ====== */
+.carousel{ position:relative }
+.car-viewport{ overflow:hidden }
+.car-track{ display:flex; gap:12px; padding:2px; margin:0; list-style:none; will-change:transform }
+.car-item{
+  flex:0 0 calc(33.333% - 8px);
+  background:var(--card); border:1px solid var(--line); border-radius:14px; padding:20px;
+  text-align:left; transition:transform .25s ease, box-shadow .25s ease;
+}
+.car-item:hover{ transform:translateY(-4px); box-shadow:0 10px 24px rgba(0,0,0,.35) }
+.car-item h3{ color:#fff; margin:0 0 8px; font-size:1.1rem }
+.car-desc{
+  color:var(--muted); font-size:.95rem; line-height:1.45; margin-bottom:12px; min-height:60px;
+}
+.car-link{
+  display:inline-block; text-decoration:none; color:var(--accent); font-weight:600; font-size:.92rem;
+  transition:color .2s ease, transform .15s ease;
+}
+.car-link:hover{ color:#5a9bff; transform:translateX(3px) }
+@media (max-width:900px){ .car-item{ flex-basis:50% } }
+@media (max-width:560px){ .car-item{ flex-basis:100% } }
+.car-btn{
+  position:absolute; top:50%; transform:translateY(-50%); width:36px; height:36px; border-radius:50%;
+  border:1px solid var(--line); background:#0f223d; color:#fff; cursor:pointer;
+}
+.car-prev{ left:-6px } .car-next{ right:-6px }
+.car-btn:hover{ filter:brightness(1.1) }
+.car-hint{ color:var(--muted) }
+
+/* =========================
+   Carrossel de Banners
+   ========================= */
+.banner-carousel{ position:relative }
+.banner-viewport{
+  overflow:hidden; border-radius:14px; border:1px solid var(--line);
+  box-shadow:0 10px 30px rgba(0,0,0,.35);
+}
+.banner-track{
+  display:flex; margin:0; padding:0; list-style:none;
+  transition:transform .6s cubic-bezier(.22,.61,.36,1);
+}
+.banner-slide{ flex:0 0 100%; position:relative }
+.banner-slide a{ display:block; position:relative }
+.banner-slide img{
+  width:100%; height:auto; display:block; aspect-ratio:21/9; object-fit:cover; background:#0a1424;
+}
+.ban-caption{
+  position:absolute; inset:auto 0 0 0; padding:18px 20px;
+  background:linear-gradient(to top, rgba(5,12,25,.75), rgba(5,12,25,0)); color:#fff;
+}
+.ban-caption h3{ margin:0 0 4px; font-size:1.25rem }
+.ban-caption p{ margin:0; color:#E6ECF7; opacity:.9 }
+.ban-btn{
+  position:absolute; top:50%; transform:translateY(-50%); width:40px; height:40px; border-radius:50%;
+  border:1px solid var(--line); background:#0f223d; color:#fff; cursor:pointer; z-index:2;
+  box-shadow:0 6px 18px rgba(0,0,0,.35);
+}
+.ban-prev{ left:10px } .ban-next{ right:10px }
+.ban-btn:hover{ filter:brightness(1.1) }
+.ban-dots{ display:flex; gap:8px; justify-content:center; margin-top:10px }
+.ban-dots button{
+  width:8px; height:8px; border-radius:50%; border:0; background:#5b6b80; opacity:.7; cursor:pointer;
+}
+.ban-dots button.active{ background:var(--accent); opacity:1; box-shadow:0 0 0 3px rgba(52,120,255,.25) }
+
+/* =========================
+   Rodapé profissional
+   ========================= */
+.footer-pro{
+  background:linear-gradient(180deg,#0B1526 0%,#121C2F 100%);
+  color:#E7EDF4; padding:44px 24px 0; border-top:1px solid rgba(255,255,255,.06);
+  font-size:.95rem;
+}
+
+/* faixa superior: logo | colunas | social */
+.footer-top{
+  max-width:1200px; margin:0 auto;
+  display:grid; grid-template-columns:260px 1fr 260px; gap:36px; align-items:start;
+}
+
+/* bloco do logo (esquerda) */
+.brand-block{ display:flex; gap:14px; align-items:center }
+.footer-logo-img{ width:64px; height:auto; border-radius:8px; filter:drop-shadow(0 2px 6px rgba(0,0,0,.35)) }
+.footer-name{ margin:0 0 2px; font-weight:700; color:#fff }
+.footer-sub{ margin:0; color:#AAB6C8; font-size:.9rem }
+
+/* colunas centrais */
+.footer-columns{
+  display:grid; grid-template-columns:repeat(3,minmax(160px,1fr)); gap:28px;
+}
+.footer-col h4{
+  color:#fff; margin:0 0 10px; font-size:1rem; position:relative; text-align:left;
+}
+.footer-col h4::after{
+  content:""; display:block; width:32px; height:2px; background:#3478FF; border-radius:1px; margin-top:6px;
+}
+.footer-col ul{ list-style:none; margin:0; padding:0 }
+.footer-col li{ margin:8px 0 }
+.footer-col a{ color:#BFC7D1; text-decoration:none }
+.footer-col a:hover{ color:#fff }
+
+/* ===== Contribua (centralização 100%) ===== */
+
+/* Centraliza o bloco todo quando houver QR */
+.footer-columns .footer-col:has(.footer-qr){
+  display:grid; place-items:center; text-align:center;
+}
+
+/* Fallback para navegadores sem :has() — usar .contribute no <h4> */
+.footer-col h4.contribute{ text-align:center }
+.footer-col h4.contribute::after{
+  width:var(--underline); margin-left:auto; margin-right:auto;
+}
+
+/* Quando :has() estiver disponível, centraliza automaticamente título e linha */
+.footer-col h4:has(+ .footer-qr){ text-align:center }
+.footer-col h4:has(+ .footer-qr)::after{
+  width:var(--underline); margin-left:auto; margin-right:auto;
+}
+
+/* QR */
+.footer-col .footer-qr{
+  width:var(--qr-size); height:auto; display:block;
+  margin:12px auto 14px;
+  background:#fff; padding:8px; border-radius:12px;
+  border:1px solid rgba(255,255,255,.08);
+  box-shadow:0 10px 26px rgba(0,0,0,.28);
+}
+
+/* Botão (sempre numa única linha) */
+.footer-col .footer-copy-btn{
+  display:inline-flex; align-items:center; justify-content:center; gap:6px;
+  width:auto; min-width:50px; white-space:nowrap;
+  background:#1061ff; color:#fff; border:0; border-radius:999px;
+  padding:12px 26px; font-weight:600; cursor:pointer;
+  transition:background .25s ease, transform .1s ease;
+  box-shadow:0 8px 22px rgba(16,97,255,.25);
+}
+.footer-col .footer-copy-btn:hover{ background:#004edb; transform:translateY(-1px) }
+
+.footer-col .pix-msg{
+  display:block; margin-top:6px; text-align:center; color:#5f708c; font-size:.85rem; min-height:1.1em;
+}
+
+/* bloco social (direita) */
+.social-block{ display:flex; flex-direction:column; align-items:flex-end; gap:14px }
+.footer-social{ display:flex; gap:12px }
+.footer-social img{ width:26px; height:26px; opacity:.9; transition:opacity .2s, transform .2s }
+.footer-social img:hover{ opacity:1; transform:scale(1.1) }
+.btn-contact{
+  background:#E6416D; color:#fff; text-decoration:none; padding:.55rem 1.1rem;
+  border-radius:22px; font-weight:700; transition:filter .25s;
+}
+.btn-contact:hover{ filter:brightness(1.08) }
+
+/* barra inferior */
+.footer-bottom{
+  margin-top:34px; background:#0A1424; text-align:center; color:#9CA9BA; font-size:.9rem;
+  padding:14px; border-top:1px solid rgba(255,255,255,.06);
+}
+.nowrap{ white-space:nowrap }
+
+/* responsivo do rodapé */
+@media (max-width:980px){
+  .footer-top{ grid-template-columns:1fr; gap:26px; text-align:center }
+  .brand-block{ justify-content:center }
+  .social-block{ align-items:center }
+  .footer-columns{ grid-template-columns:repeat(2,1fr) }
+}
+@media (max-width:560px){
+  .footer-columns{ grid-template-columns:1fr }
+}

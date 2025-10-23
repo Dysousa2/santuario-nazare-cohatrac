@@ -1,0 +1,119 @@
+{% extends 'base.html' %}
+
+{% block title %}Santuário Nossa Senhora de Nazaré{% endblock %}
+
+{% block content %}
+<section id="inicio" class="hero" style="--hero:url('https://ik.imagekit.io/5psslj4slf/Santuario/fachada-nazare_Mbj1JI0KE.jpeg?updatedAt=1761181758289')">
+  <div class="hero-overlay"></div>
+  <div class="hero-inner">
+    <h1 class="hero-title">Santuário Nossa Senhora de Nazaré</h1>
+    <p class="hero-sub">Cohatrac • São Luís – MA</p>
+    <div class="hero-cta">
+      <a href="#agenda" class="btn">Próximas missas</a>
+      <a href="#contato" class="btn btn-outline">Como chegar</a>
+    </div>
+  </div>
+</section>
+
+<section id="historia" class="section reveal">
+  <div class="container">
+    <h2>História</h2>
+    <p>O Santuário de Nossa Senhora de Nazaré no Cohatrac, em São Luís (MA), teve sua paróquia elevada a santuário em 4 de janeiro de 2020, com o objetivo de se tornar um polo de peregrinação e devoção a Nossa Senhora de Nazaré. Sua história está ligada ao Círio de Nazaré, um evento religioso de grande importância no Maranhão que reúne milhares de fiéis.</p>
+  </div>
+</section>
+<!-- Carrossel de Banners -->
+<section id="banners" class="section alt reveal">
+  <div class="container">
+    <div class="banner-carousel" aria-label="Carrossel de banners">
+      <button class="ban-btn ban-prev" aria-label="Anterior">‹</button>
+
+      <div class="banner-viewport">
+        <ul id="bannerTrack" class="banner-track">
+          <!-- Slide 1 -->
+          <li class="banner-slide">
+            <a href="#agenda" aria-label="Ver horários de missa">
+              <img src="https://ik.imagekit.io/5psslj4slf/Santuario/fachada-nazare_Mbj1JI0KE.jpeg?updatedAt=1761181758289"
+                   alt="Fachada do Santuário Nossa Senhora de Nazaré">
+              <div class="ban-caption">
+                <h3>Bem-vindo ao Santuário</h3>
+                <p>Conheça nossa comunidade e participe.</p>
+              </div>
+            </a>
+          </li>
+
+          <!-- Slide 2 -->
+          <li class="banner-slide">
+            <a href="#pastorais" aria-label="Conheça as pastorais">
+              <img src="https://ik.imagekit.io/5psslj4slf/Santuario/fachada-nazare_Mbj1JI0KE.jpeg?updatedAt=1761181758289"
+                   alt="Contribua com o Santuário">
+              <div class="ban-caption">
+                <h3>Contribua com o Santuário</h3>
+                <p>Seu gesto mantém nossas obras e serviços.</p>
+              </div>
+            </a>
+          </li>
+
+          <!-- Slide 3 -->
+          <li class="banner-slide">
+            <a href="https://youtube.com/@santuariodenazareslz" target="_blank" rel="noopener"
+               aria-label="Assista no YouTube">
+              <img src="https://ik.imagekit.io/5psslj4slf/Santuario/fachada-nazare_Mbj1JI0KE.jpeg?updatedAt=1761181758289"
+                   alt="Canal do YouTube do Santuário">
+              <div class="ban-caption">
+                <h3>Transmissões & vídeos</h3>
+                <p>Inscreva-se em nosso canal.</p>
+              </div>
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <button class="ban-btn ban-next" aria-label="Próximo">›</button>
+
+      <div class="ban-dots" id="bannerDots" aria-label="Navegação do carrossel"></div>
+    </div>
+  </div>
+</section>
+
+
+<!-- Pastorais: carrossel -->
+<section id="pastorais" class="section alt reveal">
+  <div class="container">
+    <h2>Pastorais & Movimentos</h2>
+    <div class="carousel" aria-label="Carrossel de Pastorais e Movimentos">
+      <button class="car-btn car-prev" aria-label="Anterior">‹</button>
+      <div class="car-viewport">
+        <ul id="pastoraisTrack" class="car-track"><!-- JS preenche --></ul>
+      </div>
+      <button class="car-btn car-next" aria-label="Próximo">›</button>
+    </div>
+  </div>
+</section>
+
+<!-- Agenda dinâmica das missas -->
+<section id="agenda" class="section reveal">
+  <div class="container">
+    <h2>Agenda de Missas</h2>
+    <p id="nextMassNote" class="agenda-note"></p>
+    <div class="agenda-grid" id="agendaGrid"></div>
+  </div>
+</section>
+
+<section id="contato" class="section alt reveal">
+  <div class="container">
+    <h2>Endereço</h2>
+    <p><strong>Endereço:</strong> Cohatrac I, São Luís - MA, 65054-225</p>
+    <div class="map-embed">
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d884.3672623258016!2d-44.20272035475652!3d-2.539285526062789!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x7f691026fcf8109%3A0x199a2a47f668ebd4!2sSantu%C3%A1rio%20Nossa%20Senhora%20de%20Nazar%C3%A9!5e1!3m2!1spt-BR!2sbr!4v1761182191665!5m2!1spt-BR!2sbr"
+        width="100%" height="360" style="border:0" allowfullscreen loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade" aria-label="Mapa do Santuário">
+      </iframe>
+    </div>
+
+    <a class="btn" href="https://maps.google.com/?q=Santu%C3%A1rio%20Nossa%20Senhora%20de%20Nazar%C3%A9%20Cohatrac%20S%C3%A3o%20Lu%C3%ADs%20MA" target="_blank" rel="noopener">
+      Abrir no Google Maps
+    </a>
+  </div>
+</section>
+{% endblock %}

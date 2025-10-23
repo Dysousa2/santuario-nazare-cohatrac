@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}Ops! Algo deu errado • Santuário{% endblock %}
+{% block content %}
+<section class="section" style="min-height:70vh;display:grid;place-items:center;text-align:center">
+  <div class="container">
+    <h1 style="margin:0 0 .5rem 0">Ops! Estamos ajustando algo por aqui</h1>
+    <p style="max-width:720px;margin:0 auto 1rem;color:var(--muted)">
+      Nossa equipe já foi avisada. Em <span id="sec">8</span> segundos você será redirecionado ao início.
+    </p>
+    <a class="btn" href="/">Voltar agora</a>
+  </div>
+</section>
+<script>
+  let s=8, el=document.getElementById('sec'); 
+  const t=setInterval(()=>{ s--; if(el) el.textContent=s; if(s<=0){clearInterval(t); location.href="/";}},1000);
+</script>
+{% endblock %}

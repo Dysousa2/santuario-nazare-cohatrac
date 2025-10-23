@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+
+{% block title %}Página em construção • Santuário{% endblock %}
+
+{% block content %}
+<section class="section alt under-construction">
+  <div class="container">
+    <div class="uc-content">
+      <h1>Estamos preparando esta página</h1>
+      <p>
+        “Fazei tudo o que Ele vos disser” <span class="ref">(Jo 2,5)</span>.<br>
+        Esta área do site do <strong>Santuário Nossa Senhora de Nazaré</strong> está em construção.
+        Em <span id="sec">8</span> segundos você será levado para a página inicial.
+      </p>
+
+      <div class="uc-buttons">
+        <a class="btn" href="/">Ir para o início</a>
+        <a class="btn btn-outline" href="https://wa.me/5598999095939?text=Ol%C3%A1%20Secretaria%20do%20Santu%C3%A1rio!" target="_blank" rel="noopener">Falar no WhatsApp</a>
+        <a class="btn btn-outline" href="tel:+559832383640">Ligar: (98) 3238-3640</a>
+      </div>
+
+      <div class="uc-social">
+        <span>Siga-nos:</span>
+        <a href="https://youtube.com/@santuariodenazareslz" target="_blank" rel="noopener">YouTube</a> ·
+        <a href="https://instagram.com/santuariodenazareslz" target="_blank" rel="noopener">Instagram</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  // redireciona em 8s + contador
+  (function(){
+    let s = 8;
+    const span = document.getElementById('sec');
+    const t = setInterval(()=>{
+      s--; if (span) span.textContent = s;
+      if (s <= 0){ clearInterval(t); window.location.href = "/"; }
+    },1000);
+  })();
+</script>
+
+<style>
+  /* ===== Estilo específico para a página em construção ===== */
+  .under-construction {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 75vh;
+    background: linear-gradient(180deg, #0B1526 0%, #0E1E33 100%);
+    color: var(--fg);
+    text-align: center;
+  }
+
+  .uc-content h1 {
+    font-size: 2rem;
+    margin-bottom: .8rem;
+    color: #fff;
+  }
+
+  .uc-content p {
+    color: var(--muted);
+    max-width: 720px;
+    margin: 0 auto 1.5rem;
+    line-height: 1.7;
+  }
+
+  .uc-buttons {
+    display: flex;
+    gap: .6rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 1.5rem;
+  }
+
+  .uc-social {
+    color: var(--muted);
+    font-size: .95rem;
+  }
+
+  .uc-social a {
+    color: var(--accent);
+    text-decoration: none;
+  }
+
+  .uc-social a:hover {
+    text-decoration: underline;
+  }
+
+  .ref {
+    font-style: italic;
+    color: #9FB7E6;
+  }
+</style>
+{% endblock %}

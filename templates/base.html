@@ -1,0 +1,137 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>{% block title %}Santuário Nossa Senhora de Nazaré{% endblock %}</title>
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header id="site-header" class="header" role="banner">
+    <div class="container nav">
+      <a class="brand" href="/">Santuário Nazaré</a>
+      <button class="nav-toggle" aria-label="Abrir menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+      <nav class="nav-links" data-nav role="navigation" aria-label="Principal">
+        <a href="#inicio">Início</a>
+        <a href="#historia">História</a>
+        <a href="#pastorais">Pastorais</a>
+        <a href="#agenda">Agenda</a>
+        <a href="#contato">Contato</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="conteudo">
+    {% block content %}{% endblock %}
+  </main>
+
+<footer class="footer-pro">
+  <div class="footer-top">
+    <!-- Esquerda: logo -->
+    <div class="brand-block">
+      <img
+        src="https://ik.imagekit.io/5psslj4slf/Santuario/images%20(1)_NpZd7OdP-.png?updatedAt=1761185822870"
+        alt="Nossa Senhora de Nazaré" class="footer-logo-img" width="84" height="84" loading="lazy">
+      <div>
+        <p class="footer-name">Santuário Nossa Senhora de Nazaré</p>
+        <p class="footer-sub">Cohatrac • São Luís – MA</p>
+      </div>
+    </div>
+
+    <!-- Centro: 3 colunas -->
+    <div class="footer-columns">
+      <div class="footer-col">
+        <h4>Comunidade</h4>
+        <ul>
+          <li><a href="#historia">História</a></li>
+          <li><a href="#pastorais">Pastorais</a></li>
+          <li><a href="#agenda">Agenda</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Contato</h4>
+        <ul>
+          <li><a href="tel:+559832383640">(98) 3238-3640</a></li>
+          <li><a href="mailto:pnsnaz@hotmail.com">pnsnaz@hotmail.com</a></li>
+          <li><a href="#contato">Localização</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4 class="contribute">Contribua</h4>
+        <img
+          src="https://ik.imagekit.io/5psslj4slf/Santuario/image_wTt1Y75Ra.png?updatedAt=1761184942074"
+          alt="QR Code do PIX" class="footer-qr" width="110" height="110">
+        <button id="copyPixBtn" class="footer-copy-btn"
+          data-pix="00020126360014BR.GOV.BCB.PIX0114001123990001005204000053039865802BR5901N6001C62070503***6304ABB3"
+          aria-label="Copiar código PIX">
+          <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+            <path fill="currentColor" d="M9 2a2 2 0 0 0-2 2H5a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h7a2 2 0 0 0 2-2h2a2 2 0 0 0 2-2V8.83a2 2 0 0 0-.59-1.41l-3.83-3.83A2 2 0 0 0 12.17 3H11a2 2 0 0 0-2-1Z"/>
+          </svg>
+          Copiar PIX
+        </button>
+        <small id="pixToast" class="pix-msg"></small>
+      </div>
+    </div>
+
+    <!-- Direita: redes + botão -->
+    <div class="social-block">
+      <div class="footer-social">
+        <a href="https://wa.me/5598999095939" target="_blank" rel="noopener">
+          <img src="https://ik.imagekit.io/5psslj4slf/Santuario/kisspng-computer-icons-whatsapp-whatsapp-logo-5aeca11081bc49-2881449515254571685314_kCFyLCB35.webp?updatedAt=1761183831040" alt="WhatsApp">
+        </a>
+        <a href="https://youtube.com/@santuariodenazareslz" target="_blank" rel="noopener">
+          <img src="https://ik.imagekit.io/5psslj4slf/Santuario/yt_q_P0fU6Ix.webp?updatedAt=1761183816499" alt="YouTube">
+        </a>
+        <a href="https://instagram.com/santuariodenazareslz" target="_blank" rel="noopener">
+          <img src="https://ik.imagekit.io/5psslj4slf/Santuario/in_N3XOh4c58.png?updatedAt=1761183743235" alt="Instagram">
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    © {% now "Y" %} • Santuário Nossa Senhora de Nazaré — São Luís/MA.
+    <span class="nowrap">Todos os direitos reservados.</span>
+  </div>
+          <!-- Direita: Desenvolvido por -->
+  <div class="w-full text-right flex justify-end items-center gap-2 mt-2 sm:mt-0">
+    <a href="https://twodocode.com.br" target="_blank" rel="noopener noreferrer">
+      <img src="https://ik.imagekit.io/5psslj4slf/WhatsApp%20Image%202025-04-01%20at%2013.25.00_5rSPdJ3zSC.jpeg?updatedAt=1743535467891" 
+         alt="Logo TwoDoCode" 
+          class="w-8 h-8 rounded-full border border-cyan-500 shadow-md hover:scale-105 transition">
+    </a>
+    <span class="text-xs sm:text-sm text-gray-300">Desenvolvido por 
+    <a href="https://twodocode.com.br" target="_blank" rel="noopener noreferrer" class="text-orange-400 hover:text-orange-300 font-semibold transition">
+      TwoDoCode
+    </a>
+    </span>
+    </div> 
+</footer>
+
+
+
+
+<!-- Botão flutuante WhatsApp da Secretaria -->
+<a
+  class="whatsapp-fab"
+  href="https://wa.me/5598999095939?text=Ol%C3%A1%20Secretaria%20do%20Santu%C3%A1rio!"
+  target="_blank" rel="noopener"
+  aria-label="Falar com a Secretaria no WhatsApp"
+>
+  <img
+    src="https://ik.imagekit.io/5psslj4slf/Santuario/kisspng-computer-icons-whatsapp-whatsapp-logo-5aeca11081bc49-2881449515254571685314_kCFyLCB35.webp?updatedAt=1761183831040"
+    alt=""
+    width="28" height="28" loading="lazy"
+  />
+</a>
+  <script defer src="{% static 'js/site.js' %}"></script>
+</body>
+</html>
