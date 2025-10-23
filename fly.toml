@@ -1,18 +1,39 @@
+# fly.toml
 app = "santuario-nazare-cohatrac"
 primary_region = "gru"
 
 [build]
-  # com Dockerfile no repo, o Fly usa ele automaticamente
+  dockerfile = "Dockerfile"
 
 [env]
-  DJANGO_SETTINGS_MODULE = "core.settings"
-  PYTHONUNBUFFERED = "1"
   PORT = "8080"
 
 [http_service]
-  internal_port = 8080
+  internal_port = 8000
   force_https = true
-  auto_start_machines = true
   auto_stop_machines = true
+  auto_start_machines = true
   min_machines_running = 0
-  processes = ["app"]
+  processes = ['app']
+
+[[vm]]
+  memory = '1gb'
+  cpu_kind = 'shared'
+  cpus = 1
+
+[[statics]]
+  guest_path = '/code/static'
+  url_prefix = '/static/'
+
+[checks]
+  [checks.http]
+    port = 8080
+    type = "http"
+    interval = "15s"
+    timeout = "2s"
+    method = "get"
+    path = "/"
+
+[deploy]
+  # migrate roda no release; collectstatic roda no build
+  release_command = "python manage.py migrate --noinput"
