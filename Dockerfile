@@ -31,9 +31,4 @@ RUN python manage.py collectstatic --noinput
 ENV PORT=8080
 
 # Comando de execução (escuta 0.0.0.0:$PORT)
-CMD exec gunicorn core.wsgi:application \
-  --bind 0.0.0.0:${PORT} \
-  --workers 3 \
-  --threads 2 \
-  --timeout 120 \
-  --log-file -
+CMD ["gunicorn", "--bind", ":8000", "--workers", "2", "core.wsgi"]
