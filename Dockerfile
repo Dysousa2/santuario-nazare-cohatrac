@@ -1,37 +1,31 @@
-# Dockerfile
-ARG PYTHON_VERSION=3.12-slim-bullseye
-FROM python:${PYTHON_VERSION}
+# Dockerfile — Django + Poetry + Fly.io
+FROM python:3.12-slim
 
-ENV PYTHONDONTWRITEBYTECODE=1 \
-    PYTHONUNBUFFERED=1 \
-    POETRY_VERSION=1.8.3 \
-    POETRY_VIRTUALENVS_CREATE=false \
-    PORT=8080
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
+ENV PATH="/root/.local/bin:$PATH"
 
-# deps do sistema
+# Instalar dependências de sistema
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    libpq-dev gcc curl \
+    build-essential libpq-dev curl \
  && rm -rf /var/lib/apt/lists/*
 
-WORKDIR /code
+# Instalar Poetry
+RUN curl -sSL https://install.python-poetry.org | python3 -
 
-# Instala Poetry
-RUN pip install --no-cache-dir "poetry==$POETRY_VERSION"
+WORKDIR /app
 
-# Copia configs do Poetry primeiro para aproveitar cache
-COPY pyproject.toml poetry.lock* /code/
+# Copiar configs do Poetry
+COPY pyproject.toml poetry.lock* /app/
 
-# Instala dependências (sem criar venv, por causa do POETRY_VIRTUALENVS_CREATE=false)
-RUN poetry install --no-interaction --no-ansi --only main
+# Instalar dependências (sem virtualenv)
+RUN poetry config virtualenvs.create false && poetry install --no-root --no-interaction --no-ansi
 
-# Copia o restante do projeto
-COPY . /code
+# Copiar o restante do projeto
+COPY . /app/
 
-# Coleta estáticos (precisa STATIC_ROOT nas settings)
-RUN python manage.py collectstatic --noinput
-
-# Porta informativa (Fly usa internal_port do fly.toml)
+# Expor porta
 EXPOSE 8080
 
-# Sobe gunicorn
-CMD ["gunicorn", "core.wsgi:application", "--bind", "0.0.0.0:${PORT}", "--workers", "3", "--threads", "2", "--timeout", "120", "--log-file", "-"]
+# Comando final
+CMD ["gunicorn", "--bind", ":8000", "--workers", "2", "core.wsgi"]
