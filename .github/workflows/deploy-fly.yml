@@ -2,29 +2,21 @@ name: Deploy to Fly.io
 
 on:
   push:
-    branches: ["main"]
-  workflow_dispatch: {}
+    branches:
+      - main  
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+    - name: Checkout do código
+      uses: actions/checkout@v3
 
-      # (Opcional) Checar sintaxe do projeto rapidamente
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.10"
+    - name: Instalar o Fly CLI
+      uses: superfly/flyctl-actions/setup-flyctl@v1
 
-      - name: Install flyctl
-        uses: superfly/flyctl-actions/setup-flyctl@v1
-
-      # Deploy usando o Dockerfile da raiz
-      - name: Deploy to Fly
-        env:
-          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
-        run: |
-          flyctl deploy --remote-only --app $FLY_APP_NAME --strategy immediate
+    - name: Deploy para Fly.io
+      run: flyctl deploy --remote-only
+      env:
+        FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}

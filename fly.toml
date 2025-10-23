@@ -6,21 +6,32 @@ primary_region = "gru"  # ou ewr/mia etc, escolha a mais próxima de você
 [build]
   # usando Dockerfile da raiz (nada a declarar aqui)
 
+
+app = 'santuario-nazare-cohatrac'
+primary_region = 'gru'
+console_command = '/code/manage.py shell'
+
+[build]
+
+[deploy]
+    release_command = "sh -c 'python manage.py migrate && python manage.py collectstatic --noinput'"
+
 [env]
   PORT = "8080"
 
 [http_service]
-  internal_port = 8080
+  internal_port = 8000
   force_https = true
-  auto_stop_machines = false
+  auto_stop_machines = true
   auto_start_machines = true
-  min_machines_running = 1
+  min_machines_running = 0
+  processes = ['app']
 
-  [http_service.concurrency]
-    type = "requests"
-    soft_limit = 20
-    hard_limit = 25
+[[vm]]
+  memory = '1gb'
+  cpu_kind = 'shared'
+  cpus = 1
 
-[deploy]
-  # roda migrations a cada deploy
-  release_command = "python manage.py migrate --noinput"
+[[statics]]
+  guest_path = '/code/static'
+  url_prefix = '/static/'
