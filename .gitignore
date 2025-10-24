@@ -30,3 +30,4 @@ media/
 *.env
 *.key
 *.pem
+.env

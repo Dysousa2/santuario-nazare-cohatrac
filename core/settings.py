@@ -12,11 +12,14 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 
 import os
 from pathlib import Path
+from decouple import config
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = 'django-insecure-fpxp4(so+#_1o1w!)c5m0ka99)uyat08zk&u+@83)#d@jqt%dv'
+SECRET_KEY = config('SECRET_KEY')
 
-DEBUG = True
+
+DEBUG = config('DEBUG', default=False, cast=bool)
 
 ALLOWED_HOSTS = ["santuario-nazare-cohatrac.fly.dev", "localhost", "127.0.0.1"]
 CSRF_TRUSTED_ORIGINS = ["https://santuario-nazare-cohatrac.fly.dev"]
