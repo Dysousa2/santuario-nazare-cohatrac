@@ -16,7 +16,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = 'django-insecure-fpxp4(so+#_1o1w!)c5m0ka99)uyat08zk&u+@83)#d@jqt%dv'
 
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ["santuario-nazare-cohatrac.fly.dev", "localhost", "127.0.0.1"]
 CSRF_TRUSTED_ORIGINS = ["https://santuario-nazare-cohatrac.fly.dev"]
